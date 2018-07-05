@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
-<%@page contentType="text/html;charset=utf-8" isELIgnored="false" %>
+<%@page language="java" contentType="text/html;charset=utf-8" isELIgnored="false" pageEncoding="UTF-8" %>
 <head>
 	<title>持名法州后台管理中心</title>
 			
