@@ -16,4 +16,5 @@ public class ManagerTest {
         Manager man = managerDao.selectManagerByName("王晨");
         System.out.println(man);
     }
+
 }

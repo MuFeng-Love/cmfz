@@ -14,6 +14,23 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/script/common.js"></script>
 	<script type="text/javascript">
 		var submitForm = false;
+
+		function indexBoxChecked() {
+			var box = $("#mgrName").val();
+			if (box!=""){
+			    $("#isRememberUsername").prop("checked",true);
+			}
+        }
+
+        function changeIndexBox() {
+            var box = $("#mgrName").val();
+            if (box=="${mgrName}"){
+                $("#isRememberUsername").prop("checked",true);
+            }else {
+                $("#isRememberUsername").prop("checked",false);
+            }
+        }
+
 		function checkCode(){
 			var code = $("#enCode").val();
 			$.post("<%=request.getContextPath()%>/mgr/checkCode",{code:code},
@@ -42,7 +59,7 @@
 		});
 	</script>
 </head>
-<body>
+<body onload="indexBoxChecked()">
 	
 		<div class="login">
 			<form id="loginForm" action="<%=request.getContextPath()%>/mgr/queryMgr" method="post" >
@@ -57,7 +74,7 @@
 								用户名:
 							</th>
 							<td>
-								<input type="text"  name="mgrName" class="text" value="${mgrName}" maxlength="20"/>
+								<input type="text" id="mgrName" name="mgrName" class="text" value="${mgrName}" maxlength="20"/>
 							</td>
 					  </tr>
 					  <tr>
@@ -86,7 +103,7 @@
 						</th>
 						<td>
 							<label>
-								<input type="checkbox" id="isRememberUsername" name="remember" value="true"/> 记住用户名
+								<input type="checkbox" id="isRememberUsername" name="remember" value="true" onchange="changeIndexBox()"/> 记住用户名
 							</label>
 						</td>
 					</tr>
@@ -94,7 +111,7 @@
 						<td>&nbsp;</td>
 						<th>&nbsp;</th>
 						<td>
-							<input type="button" class="homeButton" value="" onclick="location.href='/'"><input id="buttonCheck" type="submit" class="loginButton" value="验证校对">
+							<input type="button" class="homeButton" value="" onclick="location.href='/'"><input id="buttonCheck" type="submit" class="loginButton" value="请验证">
 						</td>
 					</tr>
 				</tbody></table>

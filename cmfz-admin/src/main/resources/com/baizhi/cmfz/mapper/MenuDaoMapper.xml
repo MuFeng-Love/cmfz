@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.baizhi.cmfz.dao.MenuDao">
+
+    <resultMap id="Menu" type="com.baizhi.cmfz.entity.Menu">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="code" column="code"></result>
+        <result property="icon" column="icon"></result>
+        <result property="url" column="url"></result>
+        <result property="level" column="level"></result>
+        <result property="parentId" column="parentId"></result>
+        <association property="childMenus" javaType="com.baizhi.cmfz.entity.Menu">
+            <id property="id" column="child_id"></id>
+            <result property="name" column="child_name"></result>
+            <result property="code" column="child_code"></result>
+            <result property="icon" column="child_icon"></result>
+            <result property="url" column="child_url"></result>
+            <result property="level" column="child_level"></result>
+            <result property="parentId" column="child_parentId"></result>
+        </association>
+    </resultMap>
+
+    <select id="findListMenus" resultMap="Menu">
+         select a.*,b.id as child_id,b.name as child_name,b.code as child_code,b.icon as child_icon,b.url as child_url,b.level as child_level,
+            b.parentId as child_parentId
+            from (select * from menu where id in (select parentId from menu))a inner join menu b on b.parentId = a.id
+    </select>
+
+</mapper>

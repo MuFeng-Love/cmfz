@@ -30,15 +30,14 @@ public class ManagerController {
     @ResponseBody
     public String checkCode(String code,HttpSession session){
         String getVcode = (String) session.getAttribute("vercode");
-        if (code!=null&&code.equals(getVcode)){
+        if (code!=null&&code.equalsIgnoreCase(getVcode)){
             return "success";
         }
         return "false";
     }
 
     @RequestMapping("/queryMgr")
-    @ResponseBody
-    public Manager queryManager(String mgrName, String mgrPwd, String enCode, String remember, HttpServletResponse response) throws UnsupportedEncodingException {
+    public String queryManager(String mgrName, String mgrPwd, String enCode, String remember, HttpServletResponse response,HttpServletRequest request) throws UnsupportedEncodingException {
         System.out.println(mgrName);
         System.out.println(mgrPwd);
         System.out.println(enCode);
@@ -51,16 +50,23 @@ public class ManagerController {
             String checkedPwd = DigestUtils.md5Hex(s2);
             if (s1.equals(checkedPwd)){
                 if (remember!=null){
+                    String choice = "true";
                     Cookie cookieName = new Cookie("mgrName",URLEncoder.encode(manager.getMgrName(), "utf-8"));
+                    Cookie choiceType = new Cookie("choiceChange",choice);
                     cookieName.setMaxAge(60*60*24);
+                    choiceType.setMaxAge(60*60*24);
                     response.addCookie(cookieName);
+                    response.addCookie(choiceType);
+                    HttpSession session = request.getSession();
+                    System.out.println(manager.getMgrName()+"--------------------");
+                    session.setAttribute("loginingMgr",manager.getMgrName());
                 }
-               return  manager;
+               return  "main/main";
             }else{
-                return null;
+                return "login";
             }
         }else{
-            return null;
+            return "login";
         }
     }
 
@@ -68,6 +74,7 @@ public class ManagerController {
     public String toLogin(HttpServletRequest request, ModelMap map) throws UnsupportedEncodingException {
         Cookie[] cookies = request.getCookies();
         String mgrName="";
+        String choiceType="";
         for (Cookie cookie:cookies){
             if (cookie.getName().equals("mgrName")){
                 mgrName = URLEncoder.encode(cookie.getValue(),"utf-8");
