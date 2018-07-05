@@ -20,7 +20,7 @@
 		}else{
             $("#tt").tabs("add",{
                 title:name,
-				href:path,
+				href:"${pageContext.request.contextPath}/"+path,
 				closable:true,
             });
 		}
