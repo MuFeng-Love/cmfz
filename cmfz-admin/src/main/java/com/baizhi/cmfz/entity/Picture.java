@@ -1,22 +1,28 @@
 package com.baizhi.cmfz.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 public class Picture {
     private String pictureId;
+    /**
+     * @Description 意为pictureName
+     */
     private String picturePath;
+    @JSONField(format = "yyyy-MM-dd hh:mm:ss")
     private Date pictureDate;
-    private String pictureDescriprion;
+    private String pictureDescription;
     private String pictureStatus;
 
     public Picture() {
     }
 
-    public Picture(String pictureId, String picturePath, Date pictureDate, String pictureDescriprion, String pictureStatus) {
+    public Picture(String pictureId, String picturePath, Date pictureDate, String pictureDescription, String pictureStatus) {
         this.pictureId = pictureId;
         this.picturePath = picturePath;
         this.pictureDate = pictureDate;
-        this.pictureDescriprion = pictureDescriprion;
+        this.pictureDescription = pictureDescription;
         this.pictureStatus = pictureStatus;
     }
 
@@ -44,12 +50,12 @@ public class Picture {
         this.pictureDate = pictureDate;
     }
 
-    public String getPictureDescriprion() {
-        return pictureDescriprion;
+    public String getPictureDescription() {
+        return pictureDescription;
     }
 
-    public void setPictureDescriprion(String pictureDescriprion) {
-        this.pictureDescriprion = pictureDescriprion;
+    public void setPictureDescription(String pictureDescription) {
+        this.pictureDescription = pictureDescription;
     }
 
     public String getPictureStatus() {
@@ -62,11 +68,11 @@ public class Picture {
 
     @Override
     public String toString() {
-        return "Picture{" +
+        return "PictureDao{" +
                 "pictureId='" + pictureId + '\'' +
                 ", picturePath='" + picturePath + '\'' +
                 ", pictureDate=" + pictureDate +
-                ", pictureDescriprion='" + pictureDescriprion + '\'' +
+                ", pictureDescription='" + pictureDescription + '\'' +
                 ", pictureStatus='" + pictureStatus + '\'' +
                 '}';
     }

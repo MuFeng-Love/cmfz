@@ -26,8 +26,6 @@
             var box = $("#mgrName").val();
             if (box=="${mgrName}"){
                 $("#isRememberUsername").prop("checked",true);
-            }else {
-                $("#isRememberUsername").prop("checked",false);
             }
         }
 
