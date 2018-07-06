@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-<script type="text/javascript">
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<script>
     //自定义下拉框必须有JS来实现
     $(function(){
         $("#fm").datagrid({
@@ -9,7 +9,7 @@
             pageSize:2,
             toolbar:"#tb",
             fitColumns:true,
-            singleSelect:true,
+            singleSelect:true
         });
 
         $("#add").linkbutton({
@@ -29,12 +29,12 @@
                         iconCls:"icon-help",
                         handler:function(){
                             alert("自救吧，亲！！！");
-                        },
+                        }
                     }],
 
                     buttons:[{
                         text:"提交",
-                        iconCls:"icon_page_save",
+                        iconCls:"icon-ok",
                         handler:function(){
                             $("#formAdd").form("submit",{
                                 url:"http://localhost:8088/admin/pic/create",
@@ -49,17 +49,17 @@
                                         fitColumns:true,
                                         singleSelect:true,
                                         pagination:true,
-                                        pageList:[2,4,5,8,10],
+                                        pageList:[2,4,5,8,10]
                                     });
-                                },
+                                }
                             });
-                        },
+                        }
                     },{
                         text:"取消",
-                        iconCls:"icon_cancel",
+                        iconCls:"icon-cancel",
                         handle:function(){
-                            $("dialog").dialog("close");
-                        },
+                            $("#dialog").dialog("close");
+                        }
                     }],
                     href:"${pageContext.request.contextPath}/main/formForAdd.jsp"
                 });
@@ -70,6 +70,7 @@
             onClick:function(){
                 console.log("------come in -----");
                 var rowData = $("#fm").datagrid("getSelected");
+                console.log(rowData);
                 $("#dialog").dialog({
                     title:"更新轮播图",
                     width:450,
@@ -78,18 +79,16 @@
                     minimizable:true,
                     maximizable:true,
                     resizable:true,
-
                     toolbar:[{
                         text:"帮助",
                         iconCls:"icon-help",
                         handler:function(){
                             alert("自救吧，亲！！！");
-                        },
+                        }
                     }],
-
                     buttons:[{
                         text:"提交",
-                        iconCls:"icon_page_save",
+                        iconCls:"icon-ok",
                         handler:function(){
                             $("#formOne").form("submit",{
                                 url:"http://localhost:8088/admin/pic/change",
@@ -104,27 +103,27 @@
                                         fitColumns:true,
                                         singleSelect:true,
                                         pagination:true,
-                                        pageList:[2,4,5,8,10],
+                                        pageList:[2,4,5,8,10]
                                     });
-                                },
+                                }
                             });
-                        },
+                        }
                     },{
                         text:"取消",
-                        iconCls:"icon_cancel",
+                        iconCls:"icon-cancel",
                         handle:function(){
-                            $("dialog").dialog("close");
-                        },
+                            $("#dialog").dialog("close");
+                        }
                     }],
                     href:"${pageContext.request.contextPath}/main/formForOne.jsp",
                     onLoad:function(){
                         $("#formOne").form("load",rowData);
-                    },
+                    }
                 });
             }
         });
 
-    });
+    })
 </script>
 
 <table id="fm" style="width:100%;height:100%">

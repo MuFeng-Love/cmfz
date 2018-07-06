@@ -25,12 +25,6 @@ public class PictureController {
         return ps.queryPicture(nowPage,pageSize);
     }
 
-    @RequestMapping("/searchOne")
-    @ResponseBody
-    public Picture searchOne(@RequestParam("/pictureId") String pictureId){
-        return ps.queryPictureById(pictureId);
-    }
-
     @RequestMapping("/create")
     @ResponseBody
     public Integer create(@RequestParam("picturePath")String picturePath,@RequestParam("pictureDescription") String pictureDescription,@RequestParam("pictureStatus")String pictureStatus){

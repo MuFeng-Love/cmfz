@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 @Controller
@@ -77,7 +78,7 @@ public class ManagerController {
         String choiceType="";
         for (Cookie cookie:cookies){
             if (cookie.getName().equals("mgrName")){
-                mgrName = URLEncoder.encode(cookie.getValue(),"utf-8");
+                mgrName = URLDecoder.decode(cookie.getValue(),"utf-8");
             }
         }
         map.addAttribute("mgrName",mgrName);

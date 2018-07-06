@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.baizhi.cmfz.dao.MasterDao">
+
+    <select id="findMasterById" resultType="Master">
+        select * from picture where masterId = #{masterId}
+    </select>
+
+    <select id="findAllMasters" resultType="Master">
+        select * from master limit #{rowsNumber}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from master
+    </select>
+
+    <insert id="insertMaster">
+        insert into master values (#{masterId},#{masterName},#{masterPhoto},#{masterSummary})
+    </insert>
+    
+    <delete id="deleteMaster">
+        delete from master where masterId=#{masterId}
+    </delete>
+    
+    <update id="updateMaster">
+        update master set masterName=#{masterName},masterPhoto=#{masterPhoto},masterSummary=#{masterSummary} where masterId=#{masterId}
+    </update>
+
+    <select id="findSomeMasters" resultType="Master">
+        select * from master
+        <if test="value !=null and name != null">
+            where ${name} like #{value}
+        </if>
+        limit #{rowsNumber},#{pageSize}
+    </select>
+
+    <select id="count1" resultType="int">
+        select count(*) from master
+        <if test="value !=null and name != null">
+            where ${name} like #{value}
+        </if>
+    </select>
+
+</mapper>

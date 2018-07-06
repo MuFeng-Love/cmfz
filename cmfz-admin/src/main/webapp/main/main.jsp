@@ -13,6 +13,7 @@
 <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 	function addTab(name,path){
+	    console.log(path)
 		//增加选项卡面板
 		var b =$("#tt").tabs("exists",name);
 		if (b) {

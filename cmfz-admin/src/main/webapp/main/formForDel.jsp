@@ -13,7 +13,7 @@
 <body>
 	<div style="text-align:center;">
 		<form id="formDel" method="post" style="width: 100px">
-            <input class="easyui-textbox" name="pictureId" data-options="label:'pictureId：',required:true"><br>
+			pictureId：<input class="easyui-textbox" name="pictureId" data-options="required:true"><br>
 		</form>
 	</div>
 </body>

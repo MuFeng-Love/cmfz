@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ page import="java.util.*" %>
 <html>
 <head>
@@ -12,12 +12,8 @@
 </head>
 <body>
 	<div style="text-align:center;">
-		<form id="formOne" method="post">
-			pictureId：<input class="easyui-textbox" name="pictureId" data-options="required:true" readonly="readonly"><br>
-			picturePath：<input class="easyui-textbox" name="picturePath" data-options="required:true"><br>
-			pictureDate：<input class="easyui-textbox" name="pictureDate" data-options="required:true" readonly="readonly"><br>
-			pictureDescription：<input class="easyui-textbox" name="pictureDescription" data-options="required:true"><br>
-			pictureStatus：<input class="easyui-textbox" name="pictureStatus" data-options="required:true"><br>
+		<form id="masterDel" method="post" style="width: 100px">
+			masterId：<input class="easyui-textbox" name="masterId" data-options="required:true"><br>
 		</form>
 	</div>
 </body>
