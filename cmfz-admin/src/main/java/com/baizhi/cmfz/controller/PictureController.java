@@ -7,7 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
@@ -27,14 +31,27 @@ public class PictureController {
 
     @RequestMapping("/create")
     @ResponseBody
-    public Integer create(@RequestParam("picturePath")String picturePath,@RequestParam("pictureDescription") String pictureDescription,@RequestParam("pictureStatus")String pictureStatus){
+    public Integer create(MultipartFile myFile, HttpSession session, @RequestParam("pictureDescription") String pictureDescription, @RequestParam("pictureStatus")String pictureStatus) throws IOException {
+
+        //文件的上传
+        String realPath = session.getServletContext().getRealPath("/");
+        int lastIndex = realPath.lastIndexOf("\\");
+        String substring = realPath.substring(0, lastIndex);
+        lastIndex = substring.lastIndexOf("\\");
+        String substring1 = substring.substring(0, lastIndex);
+        String uploadPath = substring1+"\\upload\\";
+
+        String picturePath = myFile.getOriginalFilename();
+
+        myFile.transferTo(new File(uploadPath+"/"+picturePath));
+
         Picture pic = new Picture();
         String pictureId = UUID.randomUUID().toString().replace("-","");
         pic.setPictureId(pictureId);
         pic.setPicturePath(picturePath);
-        pic.setPictureDate(new Date());
         pic.setPictureDescription(pictureDescription);
         pic.setPictureStatus(pictureStatus);
+
 
         return ps.addPicture(pic);
     }

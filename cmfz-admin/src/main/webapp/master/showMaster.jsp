@@ -9,7 +9,16 @@
             pageSize:2,
             toolbar:"#tbMaster",
             fitColumns:true,
-            singleSelect:true
+            singleSelect:true,
+            view: detailview,
+            detailFormatter: function(rowIndex, rowData){
+                return '<table><tr>' +
+                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/upload/' + rowData.masterPhoto +'" style="height:50px;"></td>' +
+                    '<td style="border:0">' +
+                    '<p>Attribute: ' + rowData.masterPhoto + '</p>' +
+                    '</td>' +
+                    '</tr></table>';
+            }
         });
 
         $("#addMaster").linkbutton({
@@ -174,7 +183,7 @@
                             $("#dialogForMaster").dialog("close");
                         }
                     }],
-                    href:"${pageContext.request.contextPath}/master/formForDel.jsp",
+                    href:"${pageContext.request.contextPath}/master/masterForDel.jsp",
                     onLoad:function(){
                         $("#masterDel").form("load",rowData);
                     }

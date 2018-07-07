@@ -1,23 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ page import="java.util.*" %>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/icon.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
-</head>
-<body>
-	<div style="text-align:center;">
-		<form id="masterAdd" method="post">
-			masterId：<input class="easyui-textbox" name="masterId" data-options="required:true"><br>
-			masterName：<input class="easyui-textbox" name="masterName" data-options="required:true"><br>
-			masterPhoto：<input class="easyui-textbox" name="masterPhoto" data-options="required:true"><br>
-			masterSummary：<input class="easyui-textbox" name="masterSummary" data-options="required:true"><br>
-		</form>
-	</div>
-</body>
-</html>
+<script type="application/javascript">
+    $(function () {
+        $("#getMaster").filebox({
+            buttonText:'选择文件',
+            accept:"image/jpeg, image/png"
+        })
+    });
+</script>
+<div style="text-align:center;">
+	<form id="masterAdd" method="post" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>大师法号：</td>
+				<td><input class="easyui-textbox" name="masterName" data-options="required:true"></td>
+			</tr>
+			<tr>
+				<td>法师照片：</td>
+				<td><input id="getMaster" name="myFile" data-options="buttonAlign:'right'"></td>
+			</tr>
+			<tr>
+				<td>大师简介：</td>
+				<td><input class="easyui-textbox" name="masterSummary" data-options="required:true"></td>
+			</tr>
+		</table>
+	</form>
+</div>

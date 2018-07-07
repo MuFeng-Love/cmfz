@@ -10,11 +10,11 @@ public class pictureTest {
         ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
         PictureService ps = (PictureService) app.getBean("pictureServiceImpl");
         Picture pic = new Picture();
-        pic.setPictureId("1");
+        pic.setPictureId("8");
         pic.setPicturePath("2.jpg");
         pic.setPictureDescription("好看");
         pic.setPictureStatus("不展示");
 
-        System.out.println(ps.queryPicture(1,2));
+        System.out.println(ps.addPicture(pic));
     }
 }

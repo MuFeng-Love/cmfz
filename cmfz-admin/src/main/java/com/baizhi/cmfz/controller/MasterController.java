@@ -7,7 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -25,7 +29,20 @@ public class MasterController {
 
     @RequestMapping("/create")
     @ResponseBody
-    public Integer create(@RequestParam("masterName")String masterName,@RequestParam("masterPhoto")String masterPhoto,@RequestParam("masterSummary")String masterSummary){
+    public Integer create(MultipartFile myFile, HttpSession session, @RequestParam("masterName")String masterName, @RequestParam("masterSummary")String masterSummary) throws IOException {
+
+        //文件的上传
+        String realPath = session.getServletContext().getRealPath("/");
+        int lastIndex = realPath.lastIndexOf("\\");
+        String substring = realPath.substring(0, lastIndex);
+        lastIndex = substring.lastIndexOf("\\");
+        String substring1 = substring.substring(0, lastIndex);
+        String uploadPath = substring1+"\\upload\\";
+
+        String masterPhoto = myFile.getOriginalFilename();
+
+        myFile.transferTo(new File(uploadPath+"/"+masterPhoto));
+
         Master master = new Master();
         master.setMasterName(masterName);
         master.setMasterPhoto(masterPhoto);

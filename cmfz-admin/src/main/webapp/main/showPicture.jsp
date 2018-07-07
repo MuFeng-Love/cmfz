@@ -9,8 +9,19 @@
             pageSize:2,
             toolbar:"#tb",
             fitColumns:true,
-            singleSelect:true
+            singleSelect:true,
+            view: detailview,
+            detailFormatter: function(rowIndex, rowData){
+                return '<table><tr>' +
+                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/upload/' + rowData.picturePath +'" style="height:50px;"></td>' +
+                    '<td style="border:0">' +
+                    '<p>Attribute: ' + rowData.picturePath + '</p>' +
+                    '<p>Status: ' + rowData.pictureStatus + '</p>' +
+                    '</td>' +
+                    '</tr></table>';
+            }
         });
+
 
         $("#add").linkbutton({
             onClick:function(){
@@ -129,11 +140,11 @@
 <table id="fm" style="width:100%;height:100%">
     <thead>
     <tr>
-        <th data-options="field:'pictureId',width:50,align:'center'">id</th>
-        <th data-options="field:'picturePath',width:100,align:'center'">图片名</th>
+        <th data-options="field:'pictureId',width:115,align:'center'">id</th>
+        <th data-options="field:'picturePath',width:50,align:'center'">图片名</th>
         <th data-options="field:'pictureDate',width:100,align:'center'">创建时间</th>
         <th data-options="field:'pictureDescription',width:100,align:'center'">图片描述</th>
-        <th data-options="field:'pictureStatus',width:100,align:'center'">图片状态</th>
+        <th data-options="field:'pictureStatus',width:50,align:'center'">图片状态</th>
     </tr>
     </thead>
 </table>
