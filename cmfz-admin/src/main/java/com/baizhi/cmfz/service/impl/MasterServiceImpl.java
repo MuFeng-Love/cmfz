@@ -60,7 +60,18 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public Integer addMasters(List<Master> masters) {
+        Integer result = null;
+        result = md.insertMasters(masters);
+        if (result>0){
+            return result;
+        }
+        return null;
+    }
+
+    @Override
     public Integer addMaster(Master master) {
+        System.out.println("----ServiceImpl---"+master);
         Integer result = null;
         result = md.insertMaster(master);
         if (result>0){

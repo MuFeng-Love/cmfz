@@ -16,6 +16,13 @@
         select count(*) from master
     </select>
 
+    <insert id="insertMasters">
+        insert into master values
+        <foreach collection="masters" separator="," item="master">
+            (#{master.masterId},#{master.masterName},#{master.masterPhoto},#{master.masterSummary})
+        </foreach>
+    </insert>
+
     <insert id="insertMaster">
         insert into master values (#{masterId},#{masterName},#{masterPhoto},#{masterSummary})
     </insert>

@@ -48,6 +48,7 @@ public class MasterController {
         master.setMasterPhoto(masterPhoto);
         master.setMasterSummary(masterSummary);
 
+        System.out.println("----Controller---"+master);
         return ms.addMaster(master);
     }
 

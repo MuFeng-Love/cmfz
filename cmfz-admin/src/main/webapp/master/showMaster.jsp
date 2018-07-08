@@ -191,6 +191,20 @@
             }
         });
 
+        $("#easyPoi").linkbutton({
+            iconCls:'icon-add',
+            plain:true,
+            onClick: function(){
+                $('#MasterEasyPoiDiv').dialog({
+                    title:'批量插入上师',
+                    width:300,
+                    height:150,
+                    href: '${pageContext.request.contextPath}/master/easyPoiForm.jsp',
+                    modal: true,
+                });
+            }
+        });
+
     });
 
     //模糊查询
@@ -220,6 +234,7 @@
     <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'修改'" id="updateMaster"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新增'" id="addMaster"></a>
     <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'删除'" id="delMaster"></a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'批量上传'" id="easyPoi"></a>
     <input id="ss" class="easyui-searchbox" style="width:300px" data-options="searcher:qq,prompt:'请输入查询内容',menu:'#mm'"></input>
     <div id="mm" style="width:120px">
         <div data-options="name:'masterName',iconCls:'icon-ok'">姓名</div>
@@ -227,3 +242,4 @@
 </div>
 
 <div id="dialogForMaster"></div>
+<div id="MasterEasyPoiDiv"></div>

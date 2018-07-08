@@ -1,11 +1,21 @@
 package com.baizhi.cmfz.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
+import javax.validation.constraints.Pattern;
 import java.util.UUID;
 
 public class Master {
+    @Excel(name="id")
     private String masterId;
+
+    @Excel(name="上师法号")
+    @Pattern(regexp =  "[\\u4E00-\\u9FA5]{2,5}", message = "姓名中文2-5位")
     private String masterName;
+
     private String masterPhoto;
+
+    @Excel(name="上师简介")
     private String masterSummary;
 
     public Master() {
