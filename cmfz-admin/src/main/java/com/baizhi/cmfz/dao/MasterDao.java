@@ -23,4 +23,6 @@ public interface MasterDao {
     public Integer count1(@Param("value") String value, @Param("name") String name);
 
     public Integer insertMaster(Master master);
+
+    public List<Master> findMasters();
 }

@@ -19,4 +19,6 @@ public interface MasterService {
     public Map<String,Object> querySomeMaster(Integer nowPage, Integer pageSize, String name, String value);
 
     public Integer addMaster(Master master);
+
+    public List<Master> queryMasters();
 }

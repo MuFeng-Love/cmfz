@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.baizhi.cmfz.dao.ArticleDao">
+
+    <select id="findArts" resultType="Article">
+        select * from article limit #{rowsNumber}, #{pageSize}
+    </select>
+
+    <select id="findArt" resultType="Article">
+        select * from article where articleId=#{articleId}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from article
+    </select>
+
+    <update id="updateArt">
+        update article set articleName=#{articleName},masterName=#{masterName},introduction=#{introduction},mainPic=#{mainPic} where articleId=#{articleId}
+    </update>
+
+    <insert id="insertArt">
+        insert into article values(#{articleId},#{articleName},#{masterName},#{introduction},now(),#{mainPic})
+    </insert>
+
+</mapper>

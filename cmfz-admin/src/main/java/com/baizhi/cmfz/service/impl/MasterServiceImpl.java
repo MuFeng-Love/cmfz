@@ -81,6 +81,15 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
+    public List<Master> queryMasters() {
+        List<Master> masters = md.findMasters();
+        if (!masters.isEmpty()){
+            return masters;
+        }
+        return null;
+    }
+
+    @Override
     public Integer removeMaster(String masterId) {
         Integer result = null;
         result = md.deleteMaster(masterId);

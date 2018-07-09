@@ -12,6 +12,10 @@
         select * from master limit #{rowsNumber}, #{pageSize}
     </select>
 
+    <select id="findMasters" resultType="Master">
+        select * from master
+    </select>
+
     <select id="count" resultType="int">
         select count(*) from master
     </select>
