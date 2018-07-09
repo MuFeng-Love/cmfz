@@ -38,4 +38,6 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
 
+    <bean id="transactionServiceUtils" class="com.baizhi.cmfz.util.TransactionServiceUtils"></bean>
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>

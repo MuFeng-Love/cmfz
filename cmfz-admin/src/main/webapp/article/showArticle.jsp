@@ -5,8 +5,8 @@
         $("#formArticle").datagrid({
             url:"http://localhost:8088/admin/article/showAll",
             pagination:true,
-            pageList:[2,4,5,8,10],
-            pageSize:2,
+            pageList:[5,8,10,15],
+            pageSize:5,
             fitColumns:true,
             singleSelect:true,
             columns:[[

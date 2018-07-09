@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.baizhi.cmfz.dao.LogDao">
+
+    <insert id="insertLog">
+        insert into transaction values(#{logId},#{user},#{time},#{resource},#{action},#{message},#{result})
+    </insert>
+
+    <select id="selectAll" resultType="Log">
+        select * from transaction limit #{rowsNumber}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from transaction
+    </select>
+
+</mapper>

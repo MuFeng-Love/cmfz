@@ -86,7 +86,7 @@
     myChart.setOption(option);
 
     $(function () {
-        $.post("/cmfzms_gaozhy/statistics/distribution1", function (data) {
+        $.post("${pageContext.request.contextPath}/statistics/distribution_man", function (data) {
             console.log(data);
             myChart.setOption({
                 series: [{
@@ -97,7 +97,7 @@
             });
         }, "json");
 
-        $.post("/cmfzms_gaozhy/statistics/distribution2", function (data) {
+        $.post("${pageContext.request.contextPath}/statistics/distribution_woman", function (data) {
             console.log(data);
             myChart.setOption({
                 series: [{

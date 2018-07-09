@@ -5,8 +5,8 @@
         $("#master").datagrid({
             url:"http://localhost:8088/admin/master/searchAll",
             pagination:true,
-            pageList:[2,4,5,8,10],
-            pageSize:2,
+            pageList:[5,8,10,15],
+            pageSize:5,
             toolbar:"#tbMaster",
             fitColumns:true,
             singleSelect:true,
@@ -58,7 +58,7 @@
                                         fitColumns:true,
                                         singleSelect:true,
                                         pagination:true,
-                                        pageList:[2,4,5,8,10]
+                                        pageList:[5,8,10,15]
                                     });
                                 }
                             });
@@ -113,7 +113,7 @@
                                         fitColumns:true,
                                         singleSelect:true,
                                         pagination:true,
-                                        pageList:[2,4,5,8,10]
+                                        pageList:[5,8,10,15]
                                     });
                                 }
                             });
@@ -171,7 +171,7 @@
                                         fitColumns:true,
                                         singleSelect:true,
                                         pagination:true,
-                                        pageList:[2,4,5,8,10]
+                                        pageList:[5,8,10,15]
                                     });
                                 }
                             });
@@ -212,8 +212,8 @@
         $("#master").datagrid({
             url:"http://localhost:8088/admin/master/searchSome?value="+value+"&name="+name,
             pagination:true,
-            pageList:[2,4,5,8,10],
-            pageSize:2,
+            pageList:[5,8,10,15],
+            pageSize:5,
             toolbar:"#tbMaster",
             fitColumns:true,
             singleSelect:true

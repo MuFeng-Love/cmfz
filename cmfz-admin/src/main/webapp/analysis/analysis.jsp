@@ -31,16 +31,7 @@
 
     myChart.setOption(option);
 
-    /*
-    Map<String,Object> map = new HashMap<String,Object>();
-    map.put("intervals",new String[]{"7天","15天"});
-    map.put("counts",new int[]{5,10});'
-    return map;
 
-    [{"intervals":["7天","15天"]},{}]
-
-
-    */
     // 异步加载统计信息
     $.post("${pageContext.request.contextPath }/statistics/activeUser",function(data){
         console.log(data);
