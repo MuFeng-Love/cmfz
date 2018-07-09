@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -68,5 +69,19 @@ public class ArticleController {
             result.setErrno(1);
         }
         return result;
+    }
+
+    @RequestMapping("/showAll")
+    @ResponseBody
+    public Map<String, Object> showAll(Integer page, Integer rows){
+        System.out.println(as.queryArts(page,rows));
+        return as.queryArts(page,rows);
+    }
+
+    @RequestMapping("/getIntroduction")
+    @ResponseBody
+    public String getIntroduction(String articleId){
+        Article art = as.queryArt(articleId);
+        return art.getIntroduction();
     }
 }
