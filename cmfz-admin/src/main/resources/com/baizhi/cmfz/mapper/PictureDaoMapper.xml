@@ -9,7 +9,7 @@
     </select>
 
     <select id="findAllPicture" resultType="Picture">
-        select * from picture limit #{rowsNumber}, #{pageSize}
+        select * from picture order by pictureDate desc limit #{rowsNumber}, #{pageSize}
     </select>
 
     <select id="count" resultType="int">

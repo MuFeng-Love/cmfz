@@ -23,7 +23,7 @@
                         }
                         $("#MasterEasyPoiDiv").dialog("close",true);
                         $("#master").datagrid('reload');
-
+                        $("#transaction").datagrid("reload");
                     }
                 });
             }

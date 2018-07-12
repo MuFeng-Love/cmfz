@@ -22,7 +22,7 @@ import java.util.Date;
  * @Create 2018-07-09 19:24
  */
 @Aspect
-public class TransactionServiceUtils {
+public class LogServiceUtils {
     @Autowired
     private LogDao ld;
 
@@ -48,10 +48,11 @@ public class TransactionServiceUtils {
         String message = "";
         //先获取参数(拼接message)
         Object[] args = pjp.getArgs();
-        for (Object o : args) {
-            String message1 = args.toString();
-            message = message.concat(message1);
+        for (Object obj : args) {
+            message += obj;
+            message += "  ";
         }
+        System.out.println("---------------"+message+"----------------");
 
         //获取方法对象
         MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
@@ -71,7 +72,8 @@ public class TransactionServiceUtils {
 
         //获取resource
         String oldName = methodSignature.getDeclaringTypeName();
-        String resource = oldName.substring(oldName.lastIndexOf(".")+1) ;
+        String s1 = oldName.substring(oldName.lastIndexOf(".") + 1);
+        String resource = s1.substring(0,s1.indexOf("Service"));
 
         log.setMessage(message);
         log.setResource(resource);

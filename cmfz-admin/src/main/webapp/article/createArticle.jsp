@@ -26,9 +26,25 @@
                    },
                    success : function (data) {
                        if (data == "success" ){
-                           $.message.alert("提示","创建成功！");
+                           $.messager.show({
+                               title:'我的信息',
+                               msg:'一篇文章创建成功。',
+                               timeout:2000,
+                               showType:'slide'
+                           });
+                           editor.txt.clear();
+                           document.getElementById("articleForm").reset();
+                           $("#transaction").datagrid("reload");
                        } else {
-                           $.message.alert("提示","创建失败！");
+                           $.messager.show({
+                               title:'我的信息',
+                               msg:'一篇文章创建失败。',
+                               timeout:2000,
+                               showType:'slide'
+                           });
+                           editor.txt.clear();
+                           document.getElementById("articleForm").reset();
+                           $("#transaction").datagrid("reload");
                        }
                    }
                });

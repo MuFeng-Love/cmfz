@@ -62,13 +62,20 @@
                                         pagination:true,
                                         pageList:[5,8,10,15]
                                     });
+                                    $.messager.show({
+                                        title:'我的信息',
+                                        msg:'已增加一条图片信息。',
+                                        timeout:2000,
+                                        showType:'slide'
+                                    });
+                                    $("#transaction").datagrid("reload");
                                 }
                             });
                         }
                     },{
                         text:"取消",
                         iconCls:"icon-cancel",
-                        handle:function(){
+                        handler:function(){
                             $("#dialog").dialog("close");
                         }
                     }],
@@ -82,55 +89,66 @@
                 console.log("------come in -----");
                 var rowData = $("#fm").datagrid("getSelected");
                 console.log(rowData);
-                $("#dialog").dialog({
-                    title:"更新轮播图",
-                    width:450,
-                    height:300,
-                    collapsible:true,
-                    minimizable:true,
-                    maximizable:true,
-                    resizable:true,
-                    toolbar:[{
-                        text:"帮助",
-                        iconCls:"icon-help",
-                        handler:function(){
-                            alert("自救吧，亲！！！");
+                if (rowData!=null){
+                    $("#dialog").dialog({
+                        title:"更新轮播图",
+                        width:450,
+                        height:300,
+                        collapsible:true,
+                        minimizable:true,
+                        maximizable:true,
+                        resizable:true,
+                        toolbar:[{
+                            text:"帮助",
+                            iconCls:"icon-help",
+                            handler:function(){
+                                alert("自救吧，亲！！！");
+                            }
+                        }],
+                        buttons:[{
+                            text:"提交",
+                            iconCls:"icon-ok",
+                            handler:function(){
+                                $("#formOne").form("submit",{
+                                    url:"http://localhost:8088/admin/pic/change",
+                                    onSubmit:function(){
+                                        return true;
+                                    },
+                                    success:function(data){
+                                        $("#dialog").dialog("close");
+                                        $("#fm").datagrid({
+                                            url:"http://localhost:8088/admin/pic/searchAll",
+                                            toolbar:"#tb",
+                                            fitColumns:true,
+                                            singleSelect:true,
+                                            pagination:true,
+                                            pageList:[5,8,10,15]
+                                        });
+                                        $.messager.show({
+                                            title:'我的信息',
+                                            msg:'已更新一条记录信息。',
+                                            timeout:2000,
+                                            showType:'slide'
+                                        });
+                                        $("#transaction").datagrid("reload");
+                                    }
+                                });
+                            }
+                        },{
+                            text:"取消",
+                            iconCls:"icon-cancel",
+                            handler:function(){
+                                $("#dialog").dialog("close");
+                            }
+                        }],
+                        href:"${pageContext.request.contextPath}/main/formForOne.jsp",
+                        onLoad:function(){
+                            $("#formOne").form("load",rowData);
                         }
-                    }],
-                    buttons:[{
-                        text:"提交",
-                        iconCls:"icon-ok",
-                        handler:function(){
-                            $("#formOne").form("submit",{
-                                url:"http://localhost:8088/admin/pic/change",
-                                onSubmit:function(){
-                                    return true;
-                                },
-                                success:function(data){
-                                    $("#dialog").dialog("close");
-                                    $("#fm").datagrid({
-                                        url:"http://localhost:8088/admin/pic/searchAll",
-                                        toolbar:"#tb",
-                                        fitColumns:true,
-                                        singleSelect:true,
-                                        pagination:true,
-                                        pageList:[5,8,10,15]
-                                    });
-                                }
-                            });
-                        }
-                    },{
-                        text:"取消",
-                        iconCls:"icon-cancel",
-                        handle:function(){
-                            $("#dialog").dialog("close");
-                        }
-                    }],
-                    href:"${pageContext.request.contextPath}/main/formForOne.jsp",
-                    onLoad:function(){
-                        $("#formOne").form("load",rowData);
-                    }
-                });
+                    });
+                } else {
+                    alert('请选择一条记录信息');
+                }
             }
         });
 

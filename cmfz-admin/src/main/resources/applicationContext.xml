@@ -38,6 +38,8 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
 
-    <bean id="transactionServiceUtils" class="com.baizhi.cmfz.util.TransactionServiceUtils"></bean>
+    <bean id="transactionServiceUtils" class="com.baizhi.cmfz.util.LogServiceUtils"></bean>
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+    <import resource="applicationContext-shiro.xml"></import>
 </beans>

@@ -9,7 +9,7 @@
     </insert>
 
     <select id="selectAll" resultType="Log">
-        select * from transaction limit #{rowsNumber}, #{pageSize}
+        select * from transaction order by time desc limit #{rowsNumber}, #{pageSize}
     </select>
 
     <select id="count" resultType="int">

@@ -2,13 +2,8 @@ package com.baizhi.cmfz.controller;
 
 import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
-import cn.afterturn.easypoi.excel.entity.result.ExcelImportResult;
-import cn.afterturn.easypoi.handler.inter.IExcelDataHandler;
 import com.baizhi.cmfz.entity.Master;
 import com.baizhi.cmfz.service.MasterService;
-import com.baizhi.cmfz.util.MasterExcelHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +16,6 @@ import java.util.UUID;
 @RequestMapping("/masPoi")
 @Controller
 public class MasterEasyPoiController {
-    private static final Logger log = LoggerFactory.getLogger(MasterController.class);
 
     @Autowired
     private MasterService ms;
@@ -29,10 +23,32 @@ public class MasterEasyPoiController {
     @RequestMapping("/excelImport")
     @ResponseBody
     public String excelImport(MultipartFile file) {
-        int resultTotal = 0;
-        ImportParams importParams = new ImportParams();
+        //参数一：输入流
+        //参数二：pojo
+        //参数三：导入参数对象
 
-        //数据处理
+        Integer result = null;
+        try {
+            ImportParams importParams = new ImportParams();
+            List<Master> masters = ExcelImportUtil.importExcel(file.getInputStream(), Master.class, importParams);
+
+            for (Master master : masters) {
+                master.setMasterId(UUID.randomUUID().toString().replace("-",""));
+                System.out.println(master);
+            }
+
+            result = ms.addMasters(masters);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (result >= 1) {
+            return "success";
+        } else {
+            return "error";
+        }
+
+
+        /*//数据处理
         IExcelDataHandler<Master> handler = new MasterExcelHandler();
         //对应Excel表格的列名,也是实体类对象执行的列名
         handler.setNeedHandlerFields(new String[]{"上师法名"});
@@ -71,6 +87,6 @@ public class MasterEasyPoiController {
             return "success";
         } else {
             return "error";
-        }
+        }*/
     }
 }

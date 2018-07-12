@@ -60,13 +60,20 @@
                                         pagination:true,
                                         pageList:[5,8,10,15]
                                     });
+                                    $.messager.show({
+                                        title:'我的信息',
+                                        msg:'已增加一位上师信息。',
+                                        timeout:2000,
+                                        showType:'slide'
+                                    });
+                                    $("#transaction").datagrid("reload");
                                 }
                             });
                         }
                     },{
                         text:"取消",
                         iconCls:"icon-cancel",
-                        handle:function(){
+                        handler:function(){
                             $("#dialogForMaster").dialog("close");
                         }
                     }],
@@ -79,57 +86,68 @@
             onClick:function(){
                 console.log("------come in -----");
                 var rowData = $("#master").datagrid("getSelected");
-                $("#dialogForMaster").dialog({
-                    title:"更新员工",
-                    width:450,
-                    height:300,
-                    collapsible:true,
-                    minimizable:true,
-                    maximizable:true,
-                    resizable:true,
+                if (rowData!=null){
+                    $("#dialogForMaster").dialog({
+                        title:"更新员工",
+                        width:450,
+                        height:300,
+                        collapsible:true,
+                        minimizable:true,
+                        maximizable:true,
+                        resizable:true,
 
-                    toolbar:[{
-                        text:"帮助",
-                        iconCls:"icon-help",
-                        handler:function(){
-                            alert("自救吧，亲！！！");
-                        }
-                    }],
+                        toolbar:[{
+                            text:"帮助",
+                            iconCls:"icon-help",
+                            handler:function(){
+                                alert("自救吧，亲！！！");
+                            }
+                        }],
 
-                    buttons:[{
-                        text:"提交",
-                        iconCls:"icon-ok",
-                        handler:function(){
-                            $("#masterOne").form("submit",{
-                                url:"http://localhost:8088/admin/master/change",
-                                onSubmit:function(){
-                                    return true;
-                                },
-                                success:function(data){
-                                    $("#dialogForMaster").dialog("close");
-                                    $("#master").datagrid({
-                                        url:"http://localhost:8088/admin/master/searchAll",
-                                        toolbar:"#tbMaster",
-                                        fitColumns:true,
-                                        singleSelect:true,
-                                        pagination:true,
-                                        pageList:[5,8,10,15]
-                                    });
-                                }
-                            });
+                        buttons:[{
+                            text:"提交",
+                            iconCls:"icon-ok",
+                            handler:function(){
+                                $("#masterOne").form("submit",{
+                                    url:"http://localhost:8088/admin/master/change",
+                                    onSubmit:function(){
+                                        return true;
+                                    },
+                                    success:function(data){
+                                        $("#dialogForMaster").dialog("close");
+                                        $("#master").datagrid({
+                                            url:"http://localhost:8088/admin/master/searchAll",
+                                            toolbar:"#tbMaster",
+                                            fitColumns:true,
+                                            singleSelect:true,
+                                            pagination:true,
+                                            pageList:[5,8,10,15]
+                                        });
+                                        $.messager.show({
+                                            title:'我的信息',
+                                            msg:'已更新一条记录信息。',
+                                            timeout:2000,
+                                            showType:'slide'
+                                        });
+                                        $("#transaction").datagrid("reload");
+                                    }
+                                });
+                            }
+                        },{
+                            text:"取消",
+                            iconCls:"icon-cancel",
+                            handler:function(){
+                                $("#dialogForMaster").dialog("close");
+                            }
+                        }],
+                        href:"${pageContext.request.contextPath}/master/masterForOne.jsp",
+                        onLoad:function(){
+                            $("#masterOne").form("load",rowData);
                         }
-                    },{
-                        text:"取消",
-                        iconCls:"icon-cancel",
-                        handle:function(){
-                            $("#dialogForMaster").dialog("close");
-                        }
-                    }],
-                    href:"${pageContext.request.contextPath}/master/masterForOne.jsp",
-                    onLoad:function(){
-                        $("#masterOne").form("load",rowData);
-                    }
-                });
+                    });
+                } else {
+                    alert('请选择一条记录信息');
+                }
             }
         });
 
@@ -137,57 +155,33 @@
             onClick:function(){
                 console.log("------come in -----");
                 var rowData = $("#master").datagrid("getSelected");
-                $("#dialogForMaster").dialog({
-                    title:"删除用户",
-                    width:100,
-                    height:100,
-                    collapsible:true,
-                    minimizable:true,
-                    maximizable:true,
-                    resizable:true,
-
-                    toolbar:[{
-                        text:"帮助",
-                        iconCls:"icon-help",
-                        handler:function(){
-                            alert("自救吧，亲！！！");
-                        }
-                    }],
-
-                    buttons:[{
-                        text:"提交",
-                        iconCls:"icon-ok",
-                        handler:function(){
-                            $("#masterDel").form("submit",{
-                                url:"http://localhost:8088/admin/master/drop",
-                                onSubmit:function(){
-                                    return true;
-                                },
-                                success:function(data){
-                                    $("#dialogForMaster").dialog("close");
-                                    $("#master").datagrid({
-                                        url:"http://localhost:8088/admin/master/searchAll",
-                                        toolbar:"#tbMaster",
-                                        fitColumns:true,
-                                        singleSelect:true,
-                                        pagination:true,
-                                        pageList:[5,8,10,15]
-                                    });
+                if(rowData!= null){
+                    $.messager.confirm('确认','您确认要删除这条记录吗？',function (data) {
+                        if (data){
+                            console.log(data);
+                            console.log(rowData);
+                            for (var item in rowData){
+                                if (item == 'masterId'){
+                                    var jValue =rowData[item];
+                                    console.log(jValue);
+                                    $.post("http://localhost:8088/admin/master/drop",{'masterId':jValue},function (data) {
+                                        $("#master").datagrid({
+                                            url:"http://localhost:8088/admin/master/searchAll"
+                                        });
+                                        $.messager.show({
+                                            title:'我的信息',
+                                            msg:'一条记录信息被删除。',
+                                            timeout:5000,
+                                            showType:'slide'
+                                        });
+                                    })
                                 }
-                            });
+                            } 
                         }
-                    },{
-                        text:"取消",
-                        iconCls:"icon-cancel",
-                        handle:function(){
-                            $("#dialogForMaster").dialog("close");
-                        }
-                    }],
-                    href:"${pageContext.request.contextPath}/master/masterForDel.jsp",
-                    onLoad:function(){
-                        $("#masterDel").form("load",rowData);
-                    }
-                });
+                    })
+                }else{
+                    alert('请选择一条记录信息');
+                }
             }
         });
 

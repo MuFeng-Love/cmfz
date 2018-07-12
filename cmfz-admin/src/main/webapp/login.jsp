@@ -15,35 +15,34 @@
 	<script type="text/javascript">
 		var submitForm = false;
 
-		function indexBoxChecked() {
-			var box = $("#mgrName").val();
-			if (box!=""){
-			    $("#isRememberUsername").prop("checked",true);
-			}
-        }
+        <%--function indexBoxChecked() {--%>
+			<%--var box = $("#mgrName").val();--%>
+			<%--if (box!=""){--%>
+			    <%--$("#isRememberUsername").prop("checked",true);--%>
+			<%--}--%>
+        <%--}--%>
 
-        function changeIndexBox() {
-            var box = $("#mgrName").val();
-            if (box=="${mgrName}"){
-                $("#isRememberUsername").prop("checked",true);
-            }
-        }
+        <%--function changeIndexBox() {--%>
+            <%--var box = $("#mgrName").val();--%>
+            <%--if (box=="${mgrName}"){--%>
+                <%--$("#isRememberUsername").prop("checked",true);--%>
+            <%--}--%>
+        <%--}--%>
 
-		function checkCode(){
-			var code = $("#enCode").val();
-			$.post("<%=request.getContextPath()%>/mgr/checkCode",{code:code},
-				function (data) {
-					if (data=='success'){
-					    submitForm = true;
-					    $("#buttonCheck").attr("value","请登录");
-					} else {
-					    submitForm = false;
-                        $("#buttonCheck").attr("value","验证失败");
-					}
-			});
-		}
+
 	
 		$(function(){
+		    //异步访问检查是否记录用户名
+            $.ajax({
+                type:"POST",
+                url:"${pageContext.request.contextPath}/mgr/checkUserName"
+                success:function (mgrName) {
+                    $("input[name='mgrName']").val(mgrName);
+                    $("#isRememberUsername").prop("checked",true);
+                }
+            });
+
+
 			//点击更换验证码：
 			$("#captchaImage").click(function(){//点击更换验证码
 				$("#captchaImage").attr("src","<%=request.getContextPath()%>/vcode?flag="+Math.random());
@@ -55,6 +54,20 @@
 				return submitForm;
 			});
 		});
+
+        function checkCode(){
+            var code = $("#enCode").val();
+            $.post("<%=request.getContextPath()%>/mgr/checkCode",{code:code},
+                function (data) {
+                    if (data=='success'){
+                        submitForm = true;
+                        $("#buttonCheck").attr("value","请登录");
+                    } else {
+                        submitForm = false;
+                        $("#buttonCheck").attr("value","验证失败");
+                    }
+                });
+        }
 	</script>
 </head>
 <body onload="indexBoxChecked()">
@@ -66,13 +79,13 @@
 					<tbody>
 						<tr>
 							<td width="190" rowspan="2" align="center" valign="bottom">
-								<img src="${pageContext.request.contextPath   }/img/header_logo.gif" />
+								<img src="${pageContext.request.contextPath}/img/header_logo.gif" />
 							</td>
 							<th>
 								用户名:
 							</th>
 							<td>
-								<input type="text" id="mgrName" name="mgrName" class="text" value="${mgrName}" maxlength="20"/>
+								<input type="text" id="mgrName" name="mgrName" class="text" value="" maxlength="20"/>
 							</td>
 					  </tr>
 					  <tr>
@@ -101,7 +114,10 @@
 						</th>
 						<td>
 							<label>
-								<input type="checkbox" id="isRememberUsername" name="remember" value="true" onchange="changeIndexBox()"/> 记住用户名
+								<input type="checkbox" id="isRememberUsername" name="rememberName" value="true" onchange="changeIndexBox()"/> 记住用户名
+							</label>
+							<label>
+								<input type="checkbox" id="isRememberMe" name="rememberMe" /> 七天免登陆
 							</label>
 						</td>
 					</tr>
