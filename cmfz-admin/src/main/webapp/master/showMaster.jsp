@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <script type="text/javascript">
 
     $(function(){
@@ -225,10 +226,21 @@
     </thead>
 </table>
 <div id="tbMaster" style="display: none">
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'修改'" id="updateMaster"></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新增'" id="addMaster"></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'删除'" id="delMaster"></a>
-    <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'批量上传'" id="easyPoi"></a>
+    <shiro:hasPermission name="master:modify">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true,text:'修改'" id="updateMaster"></a>
+    </shiro:hasPermission>
+
+    <shiro:hasPermission name="master:add">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'新增'" id="addMaster"></a>
+    </shiro:hasPermission>
+
+    <shiro:hasPermission name="master:drop">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'删除'" id="delMaster"></a>
+    </shiro:hasPermission>
+
+    <shiro:hasRole name="root">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true,text:'批量上传'" id="easyPoi"></a>
+    </shiro:hasRole>
     <input id="ss" class="easyui-searchbox" style="width:300px" data-options="searcher:qq,prompt:'请输入查询内容',menu:'#mm'"></input>
     <div id="mm" style="width:120px">
         <div data-options="name:'masterName',iconCls:'icon-ok'">姓名</div>

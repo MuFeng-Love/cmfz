@@ -8,4 +8,12 @@
         select * from manager where mgrName=#{mgrName}
     </select>
 
+    <select id="selectRolesByName" resultType="Role">
+        select id,roleName,roleTag from role where id in(select roleId from manager_role where mgrId = (select mgrId FROM manager where mgrName = #{mgrName}))
+    </select>
+
+    <select id="selectPermissionByName" resultType="Permission">
+        select * from permission where id in( select permissionId from role_permission WHERE roleId in (select roleId from manager_role where mgrId = (select mgrId FROM manager where mgrName = #{mgrName})))
+    </select>
+
 </mapper>
